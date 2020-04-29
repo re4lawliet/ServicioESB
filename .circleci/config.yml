@@ -8,7 +8,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - 11:d1:2b:f5:f5:d8:08:76:01:7b:14:af:0f:94:55:b5
-            - f6:67:ca:b7:c0:58:ab:fd:c1:82:06:51:4a:46:fc:4c
+            - 7d:e0:6b:e8:1e:11:46:a4:c6:3d:32:f0:a0:94:13:ca
       - run:
           name: Setup VirtualEnv and Build
           command: |
