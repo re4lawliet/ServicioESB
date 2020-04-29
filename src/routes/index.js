@@ -119,7 +119,7 @@ router.get('/estado', async(req, res) => {
 
     if(validaToken){
         const URL=URL_ASEGURADORA+req.url; //Realiza Peticion
-        console.log(URL);
+        //console.log(URL);
         const datos=await fetch(URL, {
             method: "get",
             headers: { "Content-Type": "application/json" },
@@ -209,7 +209,7 @@ router.get('/pago', async(req, res) => {
     //http://localhost:3003/pago?jwt=hola&codigo=5ea3bd21383b185adb62547c
     if(validaToken){
         //const URL=URL_OFICINA+req.url; //Realiza Peticion
-        console.log(URL);
+        const URL=URL_OFICINA+req.url; //Realiza Peticion
         const datos=await fetch(URL, {
             method: "get",
             headers: { "Content-Type": "application/json" },
@@ -219,7 +219,7 @@ router.get('/pago', async(req, res) => {
         .catch(function (err) {
         }); 
         console.log(datos);
-        res.send('OK Get Pago');
+        res.send('OK GET Afiliado');
     }
    
 });
