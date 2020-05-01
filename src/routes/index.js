@@ -53,7 +53,8 @@ router.get('/vehiculo', async(req, res) => {
         .catch(function (err) {
         }); 
         console.log(datos);
-        res.send('OK GET Vehiculos');
+        //res.send('OK GET Vehiculos');
+        res.send(datos).status(200);
     }
     
 });//Sirve arreglo de vehiculos
@@ -91,7 +92,8 @@ router.get('/foto', async(req, res) => {
         .catch(function (err) {
         }); 
         console.log(datos);
-        res.send('OK GET FOTOS');
+        //res.send('OK GET FOTOS');
+        res.send(datos).status(200);
     }
 
 });//Sirve Fotos
@@ -129,21 +131,39 @@ router.get('/estado', async(req, res) => {
         .catch(function (err) {
         }); 
         console.log(datos);
-        res.send('OK GET Estado');
+        //res.send('OK GET Estado');
+        res.send(datos).status(200);
     }
     
 });//Sirve Estados
 
 router.put('/vehiculo', async(req, res) => {
-    
-    //Paso 1: Verificar el Toquen
-    if(!req.query.jwt){
+
+    if(!req.body.jwt){
         res.send('El JWT no es válido o no contiene el scope de este servicio').status(403);
     }
-
+    //Validacion del Toquen
+    const validaToken=true;
+    const token2=req.body.jwt;
+    jwt.verify(token2, KEY, (err, data) => {
+        if(err){
+            alidaToken=false;
+            res.send('El JWT no es válido').status(403);
+            
+        }     
+    });
     //Paso 2: Si Pasa La verificacion Envia el Contenido al Servicio
-    //http://localhost:3003/vehiculo?jwt=hola&id=1&placa=10&estado=false
-    //http://localhost:3003/vehiculo?jwt=hola
+    if(validaToken){
+
+        var datos = await fetchQuery(URL_ASEGURADORA+"/vehiculo",'PUT', req.body).then()
+        .catch(function(err){
+            console.log(err.status, err.statusText)
+        });
+        console.log(datos);
+        //res.send('OK PUT Vehiculo');
+        res.send(datos).status(200);
+        
+    }
     
 
 });//Sirve arreglo de vehiculos
@@ -184,7 +204,8 @@ router.get('/afiliado', async(req, res) => {
         .catch(function (err) {
         }); 
         console.log(datos);
-        res.send('OK GET Afiliado');
+        //res.send('OK GET Afiliado');
+        res.send(datos).status(200);
     }   
 
 });
@@ -219,51 +240,95 @@ router.get('/pago', async(req, res) => {
         .catch(function (err) {
         }); 
         console.log(datos);
-        res.send('OK GET Afiliado');
+        //res.send('OK GET Afiliado');
+        res.send(datos).status(200);
     }
    
 });
 //Parametros [codigo: monto:] body: JSON.stringify(body) 
 router.post('/pago', async(req, res) => {
 
-    if(!req.query.jwt){
+    if(!req.body.jwt){
         res.send('El JWT no es válido o no contiene el scope de este servicio').status(403);
     }
-    
-});
-
-router.put('/afiliado', async(req, res) => {
-
-    //Paso 1: Verificar el Toquen
-    if(!req.query.jwt){
-        res.send('El JWT no es válido o no contiene el scope de este servicio').status(403);
-    }
+    //Validacion del Toquen
+    const validaToken=true;
+    const token2=req.body.jwt;
+    jwt.verify(token2, KEY, (err, data) => {
+        if(err){
+            alidaToken=false;
+            res.send('El JWT no es válido').status(403);
+            
+        }     
+    });
     //Paso 2: Si Pasa La verificacion Envia el Contenido al Servicio
-    //http://localhost:3003/afiliado?jwt=hola&codigo=5ea3beb6504f12dcbcb9eb97&password=123456
+    if(validaToken){
+        var datos = await fetchQuery(URL_OFICINA+"/pago",'POST', req.body).then()
+        .catch(function(err){
+            console.log(err.status, err.statusText)
+        });
+        console.log(datos);
+        //res.send('OK POST Pago');
+        res.send(datos).status(200);
+        
+    }
     
 });
 
 router.post('/afiliado', async(req, res) => {
 
-    //Paso 1: Verificar el Toquen
-    if(!req.query.jwt){
+    if(!req.body.jwt){
         res.send('El JWT no es válido o no contiene el scope de este servicio').status(403);
     }
+    //Validacion del Toquen
+    const validaToken=true;
+    const token2=req.body.jwt;
+    jwt.verify(token2, KEY, (err, data) => {
+        if(err){
+            alidaToken=false;
+            res.send('El JWT no es válido').status(403);
+            
+        }     
+    });
     //Paso 2: Si Pasa La verificacion Envia el Contenido al Servicio
-    //http://localhost:3003/afiliado?jwt=hola&codigo=5ea3beb6504f12dcbcb9eb97&password=123456
-    
+    if(validaToken){
+        var datos = await fetchQuery(URL_OFICINA+"/afiliado",'POST', req.body).then()
+        .catch(function(err){
+            console.log(err.status, err.statusText)
+        });
+        console.log(datos);
+        //res.send('OK POST Afiliado');
+        res.send(datos).status(200);
+    }
 });
 
-router.post('/pago', async(req, res) => {
+router.put('/afiliado', async(req, res) => {
 
-    //Paso 1: Verificar el Toquen
-    if(!req.query.jwt){
+    if(!req.body.jwt){
         res.send('El JWT no es válido o no contiene el scope de este servicio').status(403);
     }
+    //Validacion del Toquen
+    const validaToken=true;
+    const token2=req.body.jwt;
+    jwt.verify(token2, KEY, (err, data) => {
+        if(err){
+            alidaToken=false;
+            res.send('El JWT no es válido').status(403);
+            
+        }     
+    });
     //Paso 2: Si Pasa La verificacion Envia el Contenido al Servicio
-    //http://localhost:3003/afiliado?jwt=hola&codigo=5ea3beb6504f12dcbcb9eb97&password=123456
-    
+    if(validaToken){
+        var datos = await fetchQuery(URL_OFICINA+"/afiliado",'PUT', req.body).then()
+        .catch(function(err){
+            console.log(err.status, err.statusText)
+        });
+        console.log(datos);
+        //res.send('OK PUT Afiliado');
+        res.send(datos).status(200);
+    }
 });
+
 
 
 //************    SERVIDOR DE TOKENS    *************************/
@@ -274,7 +339,6 @@ router.post('/oauth/token', async(req, res) => {
     const client_secret=req.body.client_secret;
     const grant_type=req.body.grant_type;
     const audience=req.body.audience;
-
 
     if(client_id!='fish'){
         res.send('Si el id no existe').status(404);
@@ -321,6 +385,5 @@ router.get('/fish', async (req,res) => {
     });
     console.log(token)
 });//Jala El Tocken
-
 
 module.exports = router;
