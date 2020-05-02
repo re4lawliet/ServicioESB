@@ -3,12 +3,14 @@ const router =  express.Router();
 const fetch = require('node-fetch');
 const jwt = require('jsonwebtoken');
 const fetchQuery = require('../request-manager');
+const fs = require('fs');
+const path = require('path')
 
 //ESTAS CAMBIAN SI ESTAN EN LA Nube
 const URL_ASEGURADORA="http://34.70.210.93";
 const URL_OFICINA="http://35.232.205.249";
-const KEY="201314646";
-
+const KEY=fs.readFileSync(path.join(__dirname, '../keys/public.key'), 'utf-8');
+const pKey = fs.readFileSync(path.join(__dirname, '../keys/private.key'), 'utf-8');
 
 //Funcion que maneja las peticiones y respuestas
 router.get('/', (req, res) => {
@@ -43,6 +45,7 @@ router.get('/vehiculo', async(req, res) => {
     //http://localhost:3003/vehiculo?jwt=hola&id=1&placa=10&estado=false
     //http://localhost:3003/vehiculo?jwt=hola
     if(validaToken){
+        console.log('JALO')
         const URL=URL_ASEGURADORA+req.url; //Realiza Peticion
         const datos=await fetch(URL, {
             method: "get",
@@ -622,7 +625,6 @@ router.put('/Afiliado', async(req, res) => {
         if(err){
             alidaToken=false;
             res.send('El JWT no es válido').status(403);
-            
         }     
     });
     //Paso 2: Si Pasa La verificacion Envia el Contenido al Servicio
@@ -665,8 +667,9 @@ router.post('/oauth/token', async(req, res) => {
                     "estado.get"
                   ],
             };
-            const token= jwt.sign(payload,'201314646',{
-                expiresIn: 60 * 60 * 24 // expires in 24 hours
+            const token= jwt.sign(payload,pKey,{
+                expiresIn: 60 * 60 * 24, // expires in 24 hours
+                algorithm: "RS256" 
              });
         
             res.json({
