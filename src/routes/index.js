@@ -657,15 +657,15 @@ router.post('/oauth/token', async(req, res) => {
             var payload = {
                 client_id: 'fish', 
                 scope: [
+                    "afiliado.get",
+                    "afiliado.post",
+                    "afiliado.put",
+                    "pago.get",
+                    "pago.post",
                     "vehiculo.get",
                     "foto.get",
-                    "afiliado.put",
-                    "afiliado.post",
-                    "pago.put",
-                    "pago.get",
-                    "afiliado.get",
-                    "vehiculo.put",
-                    "estado.get"
+                    "estado.get",
+                    "vehiculo.put"        
                   ],
             };
             const token= jwt.sign(payload,pKey,{
