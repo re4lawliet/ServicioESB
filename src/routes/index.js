@@ -659,9 +659,10 @@ router.post('/oauth/token', async(req, res) => {
                 scope: [
                     "vehiculo.get",
                     "foto.get",
-                    "listado.get",
                     "afiliado.put",
+                    "afiliado.post",
                     "pago.put",
+                    "pago.get",
                     "afiliado.get",
                     "vehiculo.put",
                     "estado.get"
