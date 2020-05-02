@@ -12,6 +12,7 @@ const URL_OFICINA="http://35.232.205.249";
 const KEY=fs.readFileSync(path.join(__dirname, '../keys/public.key'), 'utf-8');
 const pKey = fs.readFileSync(path.join(__dirname, '../keys/private.key'), 'utf-8');
 
+
 //Funcion que maneja las peticiones y respuestas
 router.get('/', (req, res) => {
     res.render('index.hbs');
